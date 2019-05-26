@@ -14,7 +14,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Mkyong.com</a>
+    <a class="navbar-brand" href="#">Speechy</a>
 </nav>
 
 <main role="main" class="container">
@@ -22,17 +22,173 @@
     <div class="starter-template">
         <h1>Spring Boot Web Thymeleaf Example</h1>
         <h2>
-            <span th:text="'Hello, ' + ${message}"></span>
+            <span th:text="'Hello, ' + ${controller.message}"></span>
         </h2>
     </div>
+    <form action="#" th:action="@{/analyze}" th:object="${command}" method="post" name="analyze" id="analyze">
+        <div class="form-group">
+            <label for="speechTextArea">Your speech</label>
+            <textarea class="form-control" id="speechTextArea" rows="20" th:field="*{textareaField}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Analyze</button>
+    </form>
 
-    <ol>
-        <li th:each="task : ${tasks}" th:text="${task}"></li>
-    </ol>
+    <div>
+        <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1538" height="649"
+                style="display: block; width: 1538px; height: 649px;"></canvas>
+        <header>Speech summary</header>
+        <section>
+            <div>
+                <h3>Word Count</h3>
+                <div>Characters
+                    <small class="text-muted">(with white spaces)</small>
+                    : <span th:text="${controller.speech?.charactersWithWhiteSpaces}"></span>
+                </div>
+                <div>Characters
+                    <small class="text-muted">(without white spaces)</small>
+                    : <span th:text="${controller.speech?.charactersWithoutWhiteSpaces}"></span>
+                </div>
+                <div>Words : <span th:text="${controller.speech?.totalWords}"></span></div>
+            </div>
+
+            <div>
+                <h3>Speaking / Reading</h3>
+                <div>Speaking Time
+                    <small class="text-muted">(WPM = 130)</small>
+                    : <span th:text="${controller.speech?.time?.speakingMinutes}"></span><small class="text-muted">min</small>
+                    <span th:text="${controller.speech?.time?.speakingSeconds}"></span><small class="text-muted">sec</small>
+                </div>
+                <div>Reading Time
+                    <small class="text-muted">(WPM = 250)</small>
+                    : <span th:text="${controller.speech?.time?.readingMinutes}"></span><small class="text-muted">min</small>
+                    <span th:text="${controller.speech?.time?.readingSeconds}"></span><small class="text-muted">sec</small>
+                </div>
+            </div>
+
+            <div>
+                <h3>Punctuation mark</h3>
+                <div>Period
+                    <small class="text-muted">( . )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.period}"></span></div>
+                <div>Question
+                    <small class="text-muted">( ? )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.question}"></span></div>
+                <div>Exclamation
+                    <small class="text-muted">( ! )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.exclamation}"></span></div>
+                <div>Comma
+                    <small class="text-muted">( , )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.comma}"></span></div>
+                <div>Semicolon
+                    <small class="text-muted">( ; )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.semicolon}"></span></div>
+                <div>Colon
+                    <small class="text-muted">( : )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.colon}"></span></div>
+                <div>Dash
+                    <small class="text-muted">( - )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.dash}"></span></div>
+                <div>Open bracket
+                    <small class="text-muted">( [ )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.openBracket}"></span></div>
+                <div>Close bracket
+                    <small class="text-muted">( ] )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.closeBracket}"></span></div>
+                <div>Open brace
+                    <small class="text-muted">( { )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.openBrace}"></span></div>
+                <div>Close brace
+                    <small class="text-muted">( } )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.closeBrace}"></span></div>
+                <div>Open parentheses
+                    <small class="text-muted">( ( )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.openParentheses}"></span></div>
+                <div>Close parentheses
+                    <small class="text-muted">( ) )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.closeParentheses}"></span></div>
+                <div>Apostrophe
+                    <small class="text-muted">( ' )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.apostrophe}"></span></div>
+                <div>Quotation
+                    <small class="text-muted">( " )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.quotation}"></span></div>
+                <div>Ellipsis
+                    <small class="text-muted">( ... )</small>
+                    : <span th:text="${controller.speech?.punctuationMark?.ellipsis}"></span></div>
+            </div>
+            <div>
+                <h3>Sentences</h3>
+
+                <table class="table table-borderless table-fixed">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Sentence</th>
+                        <th scope="col">Words</th>
+                        <th scope="col">Bar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sentence,iter : ${controller.speech?.sentences}">
+                        <th style="word-wrap: break-word; min-width: 25px;  max-width: 25px" scope="row">[[${iter.index}
+                            + 1]]
+                        </th>
+                        <td style="word-wrap: break-word; min-width: 160px; max-width: 160px"
+                            th:text="${sentence.sentence}"/>
+                        <td style="word-wrap: break-word; min-width: 25px;  max-width: 25px"
+                            th:text="${sentence.words.size()}"/>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" th:style="'width:' + ${sentence.wordPerSentence} + '%'">
+                                    [[${sentence.words.size()}]] / 12
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
 
 </main>
 <!-- /.container -->
 
 <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script>
+
+    var ctx = document.getElementById("myChart");
+    var sentences = [[${controller.speech.charactersWithWhiteSpaces}]];
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [12, 31, 15, 18, 25, 8, 12],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+
+</script>
 </body>
 </html>
