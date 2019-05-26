@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>pl.pawel.linkshell</groupId>
+    <artifactId>Speechy</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <inceptionYear>2019</inceptionYear>
+    <url>https://github.com/pawellinkshell/${project.artifactId}</url>
+    <description>Speechy will brings your preparation of speeches into the next level</description>
+
+    <developers>
+        <developer>
+            <id>pawel.linkshell</id>
+            <name>Pawel Linkshell</name>
+            <email>pawel.linkshell@gmail.com</email>
+            <roles>
+                <role>Author</role>
+            </roles>
+            <organization>https://github.com/pawellinkshell</organization>
+            <organizationUrl>https://github.com/pawellinkshell</organizationUrl>
+        </developer>
+    </developers>
+
+    <modules>
+        <!--<module>project1</module>-->
+        <!--<module>project2</module>-->
+        <!--<module>project3</module>-->
+    </modules>
+
+    <scm>
+        <url>https://github.com/pawellinkshell/${project.artifactId}</url>
+        <connection>scm:git:https://github.com/pawellinkshell/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:https://github.com/pawellinkshell/${project.artifactId}.git</developerConnection>
+        <tag></tag>
+    </scm>
+
+    <properties>
+        <!--For testing purposes-->
+        <assertj-core.version>RELEASE</assertj-core.version>
+        <assertj-guava.version>RELEASE</assertj-guava.version>
+        <assertj-joda-time.version>RELEASE</assertj-joda-time.version>
+        <hamcrest.version>RELEASE</hamcrest.version>
+        <mockito.version>RELEASE</mockito.version>
+        <junit-jupiter.version>5.3.2</junit-jupiter.version>
+
+        <!--For better date purposes -->
+        <joda-time.version>RELEASE</joda-time.version>
+
+        <!--Common utils-->
+        <guava.version>RELEASE</guava.version>
+        <lombok.version>1.18.2</lombok.version>
+
+        <!--For building purposes-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.dependency.version>3.0.2</maven.dependency.version>
+        <maven.compiler.version>3.7.0</maven.compiler.version>
+        <error.prone.version>RELEASE</error.prone.version>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!--Frontend-->
+        <bootstrap.version>4.2.1</bootstrap.version>
+    </properties>
+
+    <!-- For super pom-->
+    <dependencies>
+        <!--SpringBoot-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+        <!-- hot swapping, enable live reload -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- junit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Optional, for bootstrap -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- COPY Below dependencies into each module if you want to use inside the module. Managing the version is on super pom -->
+        <dependency>
+            <!--http://joel-costigliola.github.io/assertj/assertj-core-quick-start.html-->
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+        <dependency>
+            <!--http://joel-costigliola.github.io/assertj/assertj-guava.html-->
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-guava</artifactId>
+        </dependency>
+        <dependency>
+            <!--http://joel-costigliola.github.io/assertj/assertj-joda-time.html-->
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <!--http://site.mockito.org-->
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+        </dependency>
+        <dependency>
+            <!--http://www.joda.org/joda-time/-->
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+        <dependency>
+            <!--https://github.com/google/guava-->
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
+    </dependencies>
+
+    <!-- Centrally manage all versions for child pom's & transitive dependency versions -->
+    <dependencyManagement>
+        <dependencies>
+            <!--Testing-->
+            <dependency>
+                <!--http://joel-costigliola.github.io/assertj/assertj-core-quick-start.html-->
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <!-- use 2.9.0 for Java 7 projects -->
+                <version>${assertj-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <!--http://joel-costigliola.github.io/assertj/assertj-guava.html-->
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-guava</artifactId>
+                <!-- Use 2.x version if you rely on Java 7 / AssertJ Core 2.x -->
+                <version>${assertj-guava.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <!--http://joel-costigliola.github.io/assertj/assertj-joda-time.html-->
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-joda-time</artifactId>
+                <!-- use 1.1.0 for Java 7 projects -->
+                <version>${assertj-joda-time.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <!--http://site.mockito.org-->
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${hamcrest.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--Standard date and time-->
+            <dependency>
+                <!--http://www.joda.org/joda-time/-->
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+
+            <!--Commons-->
+            <dependency>
+                <!--https://github.com/google/guava-->
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--https://github.com/twitter/commons/tree/master/src/java/com/twitter/common-->
+            <!--https://github.com/twitter/commons/blob/master/src/java/com/twitter/common/styleguide.md-->
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <!--How artifact will be named-->
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <plugins>
+            <!--SpringBoot-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- Static code analysis using
+                `error-prone` from Google
+                `NullAway` from uber
+               To analyze:                mvn clean install
+               To see the result:         check console mvn build
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <compilerId>javac-with-errorprone</compilerId>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>com.uber.nullaway</groupId>
+                            <artifactId>nullaway</artifactId>
+                            <version>0.3.0</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>-Xep:NullAway:ERROR</arg>
+                        <arg>-XepOpt:NullAway:AnnotatedPackages=com.uber</arg>
+                    </compilerArgs>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-javac-errorprone</artifactId>
+                        <version>2.8</version>
+                    </dependency>
+                    <!-- override plexus-compiler-javac-errorprone's dependency on
+                         Error Prone with the latest version -->
+                    <dependency>
+                        <groupId>com.google.errorprone</groupId>
+                        <artifactId>error_prone_core</artifactId>
+                        <version>${error.prone.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- Static code analysis using
+                Codecov
+               To analyze:                mvn cobertura:cobertura
+               To see the result:         check Travis-CI build
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                    <check/>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependency.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <additionalProperties>
+                                <encoding.source>${project.build.sourceEncoding}</encoding.source>
+                                <encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
+                                <java.source>${maven.compiler.source}</java.source>
+                                <java.target>${maven.compiler.target}</java.target>
+                            </additionalProperties>
+                        </configuration>
+                    </execution>
+                    <!-- For Heroku -->
+                    <!--To build:    mvn clean install-->
+                    <!--To run:      java -jar target/dependency/webapp-runner.jar target/*.war-->
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>8.5.27.0</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.danielflower.mavenplugins</groupId>
+                <artifactId>multi-module-maven-release-plugin</artifactId>
+                <version>2.2.0</version>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <profiles>
+        <profile>
+            <!--mvn clean install sonar:sonar-->
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.organization>pawellinkshell-github</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <!--sonarcloud token-->
+                <sonar.login>64e0eb72fb66b382155d4dcca16fb7a5e71b43a7</sonar.login>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
